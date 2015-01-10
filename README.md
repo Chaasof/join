@@ -1,7 +1,10 @@
-# Description
+Join Portal
+===========
+
+## Description
 Mozilla Tunisia Join
 
-# Running
+## Running
 pip and virtualenv need to be installed on your machine.
 
   1-Setting a virtual environment:
@@ -28,9 +31,10 @@ pip and virtualenv need to be installed on your machine.
   
   4-Editing the settings file:
   
-    A-Admin username et email
-    <pre>
-      ADMINS = (
-        ('Username', 'admin@example.com'),
-      )
-    </pre>
+  4.1-Admin username and email
+     
+   <pre>
+        ADMINS = (
+          ('Username', 'admin@example.com'),
+        )
+   </pre>
