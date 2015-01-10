@@ -1,0 +1,96 @@
+{% extends "django_messages/base.html" %}
+{% load i18n %}
+{% load url from future %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block content %}
+<link href="{% static "css/profile.css" %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static "css/easyTree.css" %}">
+<div id="wrapper">
+    {% include "navbar.html" %}
+    <div id="page-wrapper">
+      
+        	<div class="col-lg-3 easy-tree" style="padding-left:0px; padding-right:0px;padding-bottom: 0px;">
+        			<!-- <div class="easy-tree"> -->
+        			<div class="user-head">
+                          <a class="inbox-avatar" href="javascript:;">
+                              <img alt="Avatar" src="{{ user.get_profile.get_mugshot_url }}">
+                          </a>
+                          <div class="user-name">
+                              <h5><a href="#">{{ user.get_full_name }}</a></h5>
+                              <span><a href="{% url 'userena_profile_detail' user.username %}">{{ user.username }}</a></span>
+                          </div>
+                          <a class="mail-dropdown pull-right" href="javascript:;">
+                              <i class="fa fa-chevron-down"></i>
+                          </a>
+                      </div>
+						<ul>
+							<li>
+								<span>									
+									<span class="glyphicon glyphicon-envelope"></span>
+									<a href="{% url 'messages_inbox' %} ">&raquo;&nbsp;{% trans "Inbox" %} <span class="label label-danger pull-right badge-message">{{ messages_inbox_count }}</span></a>
+									
+								</span>
+							</li>
+							<li>
+								<span>
+									<i class="fa fa-paper-plane"></i>
+									<a href="{% url 'messages_outbox' %} ">&raquo;&nbsp;{% trans "Sent Messages" %}</a>
+								</span>
+							</li>
+							<li class="li_selected">
+								<span>
+									<i class="fa fa-pencil-square-o"></i>
+									<a href="{% url 'messages_compose' %} ">&raquo;&nbsp;{% trans "New Message" %}</a>
+								</span>
+							</li>
+							<li>
+								<span>
+									<i class="fa fa-trash"></i>
+									<a href="{% url 'messages_trash' %} ">&raquo;&nbsp;{% trans "Trash" %}</a>
+								</span>
+							</li>
+						</ul>
+					</div>
+        		
+        	
+        	<div class="col-lg-9" style="padding-left:0px; padding-right:0px; background-color:#fff;">
+        		<div class="inbox-head">
+        			<h3 style="margin-bottom: 0; margin-top: 10px;">{% trans "Compose Message"%}</h3>
+        		</div>
+
+				<div class="inbox-body">
+					<form action="" method="post">{% csrf_token %}
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label data-row" for="recipient"><span class="data-name">{{form.recipient.label_tag}}</span></label>
+                            <div class="col-lg-7">
+                            	{% render_field form.recipient class+="form-control" %}
+                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label data-row" for="subject"><span class="data-name">{{form.subject.label_tag}}</span></label>
+                            <div class="col-lg-7">
+                            	{% render_field form.subject class+="form-control" %}
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label data-row" for="body"><span class="data-name">{{form.body.label_tag}}</span></label>
+                            <div class="col-lg-7">   
+                            {% render_field form.body class+="form-control" %}  
+                                
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                        	<p class="text-right">
+                        		<input class="btn btn-custom-primary" type="submit" value="{% trans "Send" %} Message &raquo;"/>
+                        	</p>
+                    	</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

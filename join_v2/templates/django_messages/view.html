@@ -1,0 +1,123 @@
+{% extends "django_messages/base.html" %}
+{% load i18n %}
+{% load url from future %}
+{% load staticfiles %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static "css/easyTree.css" %}">
+<div id="wrapper">
+    {% include "navbar.html" %}
+    <div id="page-wrapper">
+
+        	<div class="col-lg-3 easy-tree" style="padding-left:0px; padding-right:0px;padding-bottom: 0px;">
+        			<div class="user-head">
+                          <a class="inbox-avatar" href="javascript:;">
+                              <img alt="" src="http://thevectorlab.net/flatlab/img/mail-avatar.jpg">
+                          </a>
+                          <div class="user-name">
+                              <h5><a href="#">{{ user.get_full_name }}</a></h5>
+                              <span><a href="{% url 'userena_profile_detail' user.username %}">{{ user.username }}</a></span>
+                          </div>
+                          <a class="mail-dropdown pull-right" href="javascript:;">
+                              <i class="fa fa-chevron-down"></i>
+                          </a>
+                      </div>
+						<ul>
+							<li class="li_selected">
+								<span>									
+									<span class="glyphicon glyphicon-envelope"></span>
+									<a href="{% url 'messages_inbox' %} ">&raquo;&nbsp;{% trans "Inbox" %} <span class="label label-danger pull-right badge-message">{{ messages_inbox_count }}</span></a>
+									
+								</span>
+							</li>
+							<li>
+								<span>
+									<i class="fa fa-paper-plane"></i>
+									<a href="{% url 'messages_outbox' %} ">&raquo;&nbsp;{% trans "Sent Messages" %}</a>
+								</span>
+							</li>
+							<li>
+								<span>
+									<i class="fa fa-pencil-square-o"></i>
+									<a href="{% url 'messages_compose' %} ">&raquo;&nbsp;{% trans "New Message" %}</a>
+								</span>
+							</li>
+							<li>
+								<span>
+									<i class="fa fa-trash"></i>
+									<a href="{% url 'messages_trash' %} ">&raquo;&nbsp;{% trans "Trash" %}</a>
+								</span>
+							</li>
+						</ul>
+			
+        	</div>
+        	<div class="col-lg-9" style="padding-left:0px; padding-right:0px;">
+        		<div class="inbox-head">
+        			<h3 style="margin-bottom: 0; margin-top: 10px;">{% trans "View Message" %}</h3>
+        		</div>
+
+				<div class="inbox-body">
+                              <div class="heading-inbox">
+                                  <div class="col-md-8">
+                                      <div class="compose-btn">
+                                      	{% ifequal message.recipient.pk user.pk %}
+											<a class="btn btn-sm btn-primary" href="{% url 'messages_reply' message.id %}"><i class="fa fa-reply"></i> {% trans "Reply" %}</a>
+										{% endifequal %}
+                                          
+                                          
+                                          <a class="btn btn-danger btn-sm" href="{% url 'messages_delete' message.id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                      </div>
+
+                                  </div>
+                                  <div class="col-md-4 text-right">
+                                      <p class="date"> {{ message.sent_at|date:_("DATETIME_FORMAT")}}</p>
+                                  </div>
+                                  <div class="col-md-12">
+                                      <h4> {% trans "Subject" %} : {{ message.subject }}</h4>
+                                  </div>
+                              </div>
+                              <div class="sender-info">
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <img src="http://thevectorlab.net/flatlab/img/mail-avatar.jpg" alt="">
+                                          <strong>{{ message.sender }}</strong>
+                                          to
+                                          <strong>{{ message.recipient }}</strong>
+                                          <a href="javascript:;" class="sender-dropdown ">
+                                              <i class="fa fa-chevron-down"></i>
+                                          </a>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="view-mail">
+                                  <p>{{ message.body|linebreaksbr }}</p>
+                              </div>
+                                                           
+                          </div>
+
+				
+				<br /><br />
+				
+				
+				{% comment %}Example reply_form integration
+				{% if reply_form %}
+				<h1>{% trans "Compose reply"%}</h1>
+				<form action="{% url 'messages_reply' message.id %}" method="post">
+				{% csrf_token %}
+				<table>
+				{{ reply_form.as_table }}
+				</table>
+				<input type="submit" value="{% trans "Send" %} &raquo;"/>
+				</form>
+				{% endif %}
+				{% endcomment %}
+			</div>
+<!-- </div> -->
+</div>
+</div>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+{% endblock %}

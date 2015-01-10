@@ -1,0 +1,11 @@
+django==1.7
+
+django-userena
+
+django-guardian
+
+django-messages
+
+django-widget-tweaks
+
+easy-thumbnails
