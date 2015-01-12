@@ -8,20 +8,20 @@ Mozilla Tunisia Join
 pip and virtualenv need to be installed on your machine.
 
 **1. Setting a virtual environment:**
-  ```
+  ```shell
     mkdir venv
     virtualenv venv
     source venv/bin/activate
   ```
    
 **2. Cloning the project**
-  ```
+  ```shell
     cd venv
     git clone https://github.com/medfiras/join
   ```
   
  **3. Installing dependencies:**
-  ```
+  ```shell
     cd join
     pip install -r requirements.txt
   ```
