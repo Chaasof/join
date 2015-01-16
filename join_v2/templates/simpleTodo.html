@@ -7,12 +7,32 @@
 
 
         {% block extra_head %}
+        <link href="{% static "css/projects.css" %}" rel="stylesheet">
             <style>
 .ftodo{text-decoration : line-through ; }
 textarea{ width: 97%;
 padding: 5px;
 font-size: 14px;
 resize: vertical;}
+.checkbox-custom {
+    color: #7d7d7d;
+    font-size: 1.14em;
+    margin-right: 10px;
+}
+.checkbox-custom-checked {
+    color: #4c9628;
+    font-size: 1.14em;
+    margin-right: 10px;
+}
+.delete {
+    /*color: #7d7d7d;*/
+    font-size: 14px;
+    padding-left: 5px;
+}
+.delete:hover{
+    color: #c52c2c;
+}
+
 </style>
             <script type="text/javascript">
             function sendtwitter(){
@@ -49,10 +69,8 @@ resize: vertical;}
        <div class="row">
         <div class="col-lg-12">
                 <div class="col-lg-9 col-md-offset-2">
-                    <div id="todo" class="well">
-                    {% block todo %}
                     <div class="col-lg-12">
-                        <div class="col-lg-6 pull-left"><h3 class="text-success">To DO</h3></div>
+                        <div class="col-lg-6 pull-left"><h3 class="">To DO</h3></div>
                         <div class="col-lg-6 pull-right">
                             <a id="modal-750588" href="#modal-container-750588" role="button" class="btn btn-success btn-sm pull-right" data-toggle="modal">
                                 <i class="fa fa-plus"></i>
@@ -61,6 +79,10 @@ resize: vertical;}
                         </div>
                     </div>
                     <hr/>
+                    <div id="todo" class="widget widget-primary widget-small">
+                    {% block todo %}
+                    
+                    
                     <table class="table table-hover">
                         <thead>                            
                             <tr>
@@ -80,26 +102,26 @@ resize: vertical;}
                             {% if todo.priority == '3' %}
                             <tr class='info'>
                             {% endif %}
-                                <td class="todo">{{ todo.todo }}</td>
+                                <td class="todo"><a href="{% url 'finish' todo.id %}" title="finish"><i class="fa fa-check-square-o checkbox-custom"></i></a> {{ todo.todo }}</td>
                                 <td> <span class="pull-right">{{ todo.pubtime }}</span> </td>
                                 <td class="te">
                                     <div class="col-lg-7 pull-right">
-                                        <a href="{% url 'finish' todo.id %}" title="finish"><i class="fa fa-check"></i></a>
+                                        
                                         <a href="{% url 'update' todo.id %}" title="edit"><i class="fa fa-pencil-square-o"></i></a>
-                                        <a href="{% url 'delete' todo.id %}" title="delete"><i class="fa fa-trash"></i></a>                          
+                                        <a class="delete" href="{% url 'delete' todo.id %}" title="delete"><i class="fa fa-trash"></i></a>                          
                                     </div>
                                 </td>
                             </tr>
                             {% endfor %}
                             {% for ftodo in finishtodos %}
                             <tr class='success'>
-                                <td class="ftodo muted">{{ ftodo.todo }}</td>
+                                <td class="ftodo muted"><a href="{% url 'backout' ftodo.id %}" title="finish"><i class="fa fa-check-square-o checkbox-custom-checked"></i></a> {{ ftodo.todo }}</td>
                                 <td> <span class="pull-right">{{ ftodo.pubtime }}</span> </td>
                                 <td class="te">
                                     <div class="col-lg-7 pull-right">
-                                        <a href="{% url 'backout' ftodo.id %}" title="finish"><i class="fa fa-reply"></i></a>
+                                        
                                         <a href="{% url 'update' ftodo.id %}" title="edit"><i class="fa fa-pencil-square-o"></i></a>
-                                        <a href="{% url 'delete' ftodo.id %}" title="delete"><i class="fa fa-trash"></i></a>
+                                        <a class="delete" href="{% url 'delete' ftodo.id %}" title="delete"><i class="fa fa-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
