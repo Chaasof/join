@@ -47,22 +47,22 @@
                                                     <div class="contact">                                                        
                                                         <ul class="list-inline social">
                                                             <li>
-                                                                <a title="Facebook" href="#">
+                                                                <a title="Facebook" href="{{ profile.facebook}}">
                                                                     <i class="fa fa-facebook-square"></i>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a title="Twitter" href="#">
+                                                                <a title="Twitter" href="{{ profile.twitter}}">
                                                                     <i class="fa fa-twitter-square"></i>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a title="Google Plus" href="#">
+                                                                <a title="Google Plus" href="{{ profile.googleplus}}">
                                                                     <i class="fa fa-google-plus-square"></i>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a title="Github" href="#">
+                                                                <a title="Github" href="{{ profile.github}}">
                                                                     <i class="fa fa-github-square"></i>
                                                                 </a>
                                                             </li>
@@ -101,7 +101,7 @@
                                                         </p>
                                                         <p class="data-row">
                                                             <span class="data-name">Website</span>
-                                                            <span class="data-value"><a href="#">www.medfiras.com</a></span>
+                                                            <span class="data-value"><a href="{{ profile.website}}">{{ profile.website}}</a></span>
                                                         </p>
                                                         <p class="data-row">
                                                             <span class="data-name">Last Login</span>
