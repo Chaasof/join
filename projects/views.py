@@ -23,8 +23,6 @@ class Project(forms.ModelForm):
 	@staticmethod    
 	@csrf_exempt
 	def List_all_project(request):
-		#g = Github("medfiras", "firas23")
-		#git = g.get_user().get_repos()
 		prject_list = Projects.objects.all()
 		paginator = Paginator(prject_list, 10) # Show 25 contacts per page
 		page_range = paginator.page_range
